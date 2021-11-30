@@ -1,7 +1,7 @@
 # halve-pdf.sh
 A shell script to split your your pdf's pages into two (horizontally)
 
-Requires `pdfinfo`, `pdfcrop`, `pdftk`, `bc`, `grep`, `awk
+Requires `pdfinfo`, `pdfcrop`, `pdftk`, `bc`, `grep`, `awk`
 
 ## Usage
 `halve-pdf.sh input_filename output_filename`
