@@ -1,6 +1,6 @@
 #!/usr/bin/sh
 # Splits pages in half horizontally.
-set -x
+# set -x
 set -e
 
 # Uses pdfinfo, pdfcrop, bc, grep, awk
@@ -27,15 +27,20 @@ crop_bp=$(echo "scale=4; $width/1.00374/2" | bc | awk '{printf "%f", $1}')
 
 echo "$width"
 
+echo "The next part might take a bit"
+
 # Create one with the left pages (odd)
+echo "Creating tmp pdf with only right sides..."
 pdfcrop --margins "0 0 -$crop_bp 0" "$pdf_name" "/tmp/odd.$pdf_name"
 
 # Create one with the right pages (even)
+echo "Creating tmp pdf with only left sides..."
 pdfcrop --margins "-$crop_bp 0 0 0" "$pdf_name" "/tmp/even.$pdf_name"
 
+echo "Putting them together"
 # Interweave them
 pdftk ODD="/tmp/odd.$pdf_name" EVEN="/tmp/even.$pdf_name" shuffle ODD EVEN output "out.$pdf_name"
 
 # Remove tmp files
-
+rm "/tmp/odd.$pdf_name" "/tmp/even.$pdf_name"
 set +e
