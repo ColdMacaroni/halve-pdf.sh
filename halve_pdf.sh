@@ -13,7 +13,11 @@ then
 fi
 
 # Get dimensions in pt using pdfinfo and grep
-width=$(pdfinfo "$pdf_name" | grep "Page size:" | awk '{printf $3}')
+
+# Pass through cat -v to show non-printing characters.
+# Necessary because, for example, converting a png to a pdf with convert from
+# ImageMagick adds a NUL char at the end of the title, making grep not work
+width=$(pdfinfo "$pdf_name" | cat -v | grep "Page size:" | awk '{printf $3}')
 
 # For whatever reason if the pdf is not found the set -e doesnt catch it
 if [ -z "$width" ]
