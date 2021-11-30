@@ -23,7 +23,7 @@ fi
 
 # Convert to bp with bc to 6dp, use awk to print the leading 0
 # Divide by the magic number to convert and by 2 to get half the page
-crop_bp=$(echo "scale=4; $width/1.00374/2" | bc | awk '{printf "%f", $1}')
+crop_bp=$(echo "scale=6; $width/1.00374/2" | bc | awk '{printf "%f", $1}')
 
 echo "$width"
 
@@ -38,9 +38,19 @@ echo "Creating tmp pdf with only left sides..."
 pdfcrop --margins "-$crop_bp 0 0 0" "$pdf_name" "/tmp/even.$pdf_name"
 
 echo "Putting them together"
+
+# Logic for output filename
+if [ -z "$2" ]
+then
+    output_fn="out.$pdf_name"
+else
+    output_fn="$2"
+fi
+
 # Interweave them
-pdftk ODD="/tmp/odd.$pdf_name" EVEN="/tmp/even.$pdf_name" shuffle ODD EVEN output "out.$pdf_name"
+pdftk ODD="/tmp/odd.$pdf_name" EVEN="/tmp/even.$pdf_name" shuffle ODD EVEN output "$output_fn"
 
 # Remove tmp files
 rm "/tmp/odd.$pdf_name" "/tmp/even.$pdf_name"
+
 set +e
