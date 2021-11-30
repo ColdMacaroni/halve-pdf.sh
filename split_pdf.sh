@@ -34,7 +34,7 @@ pdfcrop --margins "0 0 -$crop_bp 0" "$pdf_name" "/tmp/odd.$pdf_name"
 pdfcrop --margins "-$crop_bp 0 0 0" "$pdf_name" "/tmp/even.$pdf_name"
 
 # Interweave them
-pdftk odd="/tmp/odd.$pdf_name" even="/tmp/even.$pdf_name" shuffle odd even output "out.$pdf_name"
+pdftk ODD="/tmp/odd.$pdf_name" EVEN="/tmp/even.$pdf_name" shuffle ODD EVEN output "out.$pdf_name"
 
 # Remove tmp files
 
