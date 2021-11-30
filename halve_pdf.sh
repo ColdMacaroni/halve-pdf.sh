@@ -1,9 +1,10 @@
 #!/usr/bin/sh
 # Splits pages in half horizontally.
+# Uses pdfinfo, pdfcrop, pdftk, bc, grep, awk
+
 # set -x
 set -e
 
-# Uses pdfinfo, pdfcrop, bc, grep, awk
 pdf_name="$1"
 if [ -z "pdf_name" ]
 then
