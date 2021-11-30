@@ -25,8 +25,6 @@ fi
 # Divide by the magic number to convert and by 2 to get half the page
 crop_bp=$(echo "scale=6; $width/1.00374/2" | bc | awk '{printf "%f", $1}')
 
-echo "$width"
-
 echo "The next part might take a bit"
 
 # Create one with the left pages (odd)
