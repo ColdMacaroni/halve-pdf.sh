@@ -37,8 +37,6 @@ pdfcrop --margins "0 0 -$crop_bp 0" "$pdf_name" "/tmp/odd.$pdf_name"
 echo "Creating tmp pdf with only left sides..."
 pdfcrop --margins "-$crop_bp 0 0 0" "$pdf_name" "/tmp/even.$pdf_name"
 
-echo "Putting them together"
-
 # Logic for output filename
 if [ -z "$2" ]
 then
@@ -46,6 +44,8 @@ then
 else
     output_fn="$2"
 fi
+
+echo "Saving them to $output_fn"
 
 # Interweave them
 pdftk ODD="/tmp/odd.$pdf_name" EVEN="/tmp/even.$pdf_name" shuffle ODD EVEN output "$output_fn"
